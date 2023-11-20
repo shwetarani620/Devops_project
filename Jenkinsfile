@@ -12,7 +12,7 @@ pipeline {
     }
         stage ('Check Secrets') {
        steps {
-       sh 'trufflehog3 https://github.com/sweetcbk/DevSecOps.git -f json -o truffelhog_output.json || true'
+       sh 'trufflehog3 https://github.com/shwetarani620/Devops_project.git -f json -o truffelhog_output.json || true'
        }
      }
       stage ('Software Composition Analysis') {
@@ -36,22 +36,22 @@ stage ('Static Analysis') {
       }
     }
       
-      stage ('Deploy to Server Application') {
-            steps {
-           sshagent(['server-application']) {
-              sh 'scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/project/webgoat-server-v8.2.0-SNAPSHOT.jar ubuntu@54.242.89.216:/WebGoat'
-             sh 'ssh -o  StrictHostKeyChecking=no ubuntu@54.242.89.216 "nohup java -jar webgoat-server-v8.2.0-SNAPSHOT.jar --server.address=0.0.0.0 --server.port=8080 &"'
+    //   stage ('Deploy to Server Application') {
+    //         steps {
+    //        sshagent(['server-application']) {
+    //           sh 'scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/project/webgoat-server-v8.2.0-SNAPSHOT.jar ubuntu@54.242.89.216:/WebGoat'
+    //          sh 'ssh -o  StrictHostKeyChecking=no ubuntu@54.242.89.216 "nohup java -jar webgoat-server-v8.2.0-SNAPSHOT.jar --server.address=0.0.0.0 --server.port=8080 &"'
     
-           }
-           }     
-        }
-      stage ('Dynamic analysis') {
-            steps {
-           sshagent(['application_server']) {
-                sh 'ssh -o  StrictHostKeyChecking=no ubuntu@18.214.98.131 "sudo docker run --rm -v /home/ubuntu:/zap/wrk/:rw -t owasp/zap2docker-stable zap-full-scan.py -t http://54.242.89.216:8080/WebGoat -x zap_report || true" '
-              }
-           }
-    }
+    //        }
+    //        }     
+    //     }
+    //   stage ('Dynamic analysis') {
+    //         steps {
+    //        sshagent(['application_server']) {
+    //             sh 'ssh -o  StrictHostKeyChecking=no ubuntu@18.214.98.131 "sudo docker run --rm -v /home/ubuntu:/zap/wrk/:rw -t owasp/zap2docker-stable zap-full-scan.py -t http://54.242.89.216:8080/WebGoat -x zap_report || true" '
+    //           }
+    //        }
+    // }
     
      
      }
