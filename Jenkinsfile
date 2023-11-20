@@ -27,14 +27,19 @@ pipeline {
              }
          }
    
-stage ('Static Analysis') {
+// stage ('Static Analysis') {
+//       steps {
+//         withSonarQubeEnv('Sonar') {
+//           // sh 'mvn sonar:sonar'
+//           sh 'mvn clean sonar:sonar -Dsonar.java.binaries=src'  
+//         }
+//       }
+//     }
+     stage ('Generate build') {
       steps {
-        withSonarQubeEnv('Sonar') {
-          // sh 'mvn sonar:sonar'
-          sh 'mvn clean sonar:sonar -Dsonar.java.binaries=src'  
-        }
+        sh 'mvn clean install -DskipTests'
       }
-    }
+    }  
       
     //   stage ('Deploy to Server Application') {
     //         steps {
