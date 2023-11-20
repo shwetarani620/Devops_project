@@ -2,30 +2,30 @@ pipeline {
   agent any 
    
   stages {
-    stage ('Initialize') {
-      steps {
-        sh '''
-                echo "PATH = ${PATH}"
-                echo "M2_HOME = ${M2_HOME}"
-            ''' 
-      }
-    }
-        stage ('Check Secrets') {
-       steps {
-       sh 'trufflehog3 https://github.com/shwetarani620/Devops_project.git -f json -o truffelhog_output.json || true'
-       }
-     }
-      stage ('Software Composition Analysis') {
-             steps {
-                 dependencyCheck additionalArguments: ''' 
-                     -o "./" 
-                     -s "./"
-                     -f "ALL" 
-                     --prettyPrint''', odcInstallation: 'owasp-dc'
+    // stage ('Initialize') {
+    //   steps {
+    //     sh '''
+    //             echo "PATH = ${PATH}"
+    //             echo "M2_HOME = ${M2_HOME}"
+    //         ''' 
+    //   }
+    // }
+    //     stage ('Check Secrets') {
+    //    steps {
+    //    sh 'trufflehog3 https://github.com/shwetarani620/Devops_project.git -f json -o truffelhog_output.json || true'
+    //    }
+    //  }
+    //   stage ('Software Composition Analysis') {
+    //          steps {
+    //              dependencyCheck additionalArguments: ''' 
+    //                  -o "./" 
+    //                  -s "./"
+    //                  -f "ALL" 
+    //                  --prettyPrint''', odcInstallation: 'owasp-dc'
 
-                 dependencyCheckPublisher pattern: 'dependency-check-report.xml'
-             }
-         }
+    //              dependencyCheckPublisher pattern: 'dependency-check-report.xml'
+         //     }
+         // }
    
 // stage ('Static Analysis') {
 //       steps {
@@ -35,21 +35,21 @@ pipeline {
 //         }
 //       }
 //     }
-     stage ('Generate build') {
-      steps {
-        sh 'mvn clean install -DskipTests'
-      }
-    }  
+    //  stage ('Generate build') {
+    //   steps {
+    //     sh 'mvn clean install -DskipTests'
+    //   }
+    // }  
       
-    //   stage ('Deploy to Server Application') {
-    //         steps {
-    //        sshagent(['server-application']) {
-    //           sh 'scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/project/webgoat-server-v8.2.0-SNAPSHOT.jar ubuntu@54.242.89.216:/WebGoat'
-    //          sh 'ssh -o  StrictHostKeyChecking=no ubuntu@54.242.89.216 "nohup java -jar webgoat-server-v8.2.0-SNAPSHOT.jar --server.address=0.0.0.0 --server.port=8080 &"'
+      stage ('Deploy to Server Application') {
+            steps {
+           sshagent(['server-application']) {
+              sh 'scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/DevSecOps/target/01-maven-web-app.war cdac@192.168.80.32:/Tomcat'
+             sh 'ssh -o  StrictHostKeyChecking=no cdac@192.168.80.32 "nohup java -war 01-maven-web-app.war --server.address=0.0.0.0 --server.port=8080 &"'
     
-    //        }
-    //        }     
-    //     }
+           }
+           }     
+        }
     //   stage ('Dynamic analysis') {
     //         steps {
     //        sshagent(['application_server']) {
