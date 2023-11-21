@@ -3,6 +3,7 @@ pipeline {
    tools{
         java 'java'
         maven 'maven3'
+     )
   stages {
     // stage ('Initialize') {
     //   steps {
