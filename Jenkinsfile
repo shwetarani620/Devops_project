@@ -28,7 +28,7 @@ pipeline {
 
                  dependencyCheckPublisher pattern: 'dependency-check-report.xml'
              }
-    //      }
+      }
     //    stage ('Static Analysis') {
     //            steps {
     //              withSonarQubeEnv('Sonar') {
