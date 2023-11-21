@@ -1,6 +1,8 @@
 pipeline {
   agent any 
-   
+   tools{
+        java 'java'
+        maven 'maven3'
   stages {
     // stage ('Initialize') {
     //   steps {
@@ -30,8 +32,8 @@ pipeline {
 stage ('Static Analysis') {
       steps {
         withSonarQubeEnv('Sonar') {
-          sh 'mvn sonar:sonar'
-          // sh 'mvn clean sonar:sonar -Dsonar.java.binaries=src'  
+          // sh 'mvn sonar:sonar'
+          sh 'mvn clean sonar:sonar -Dsonar.java.binaries=src'  
         }
       }
     }
