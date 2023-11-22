@@ -58,10 +58,16 @@ pipeline {
     //           }
     //        }
     //     }
-        stage ('Host vulnerability assessment') {
+        // stage ('Host vulnerability assessment') {
+        // steps {
+        //      sh 'echo "In-Progress"'
+        //     }
+        //   } 
+        stage ('Security monitoring and misconfigurations') {
         steps {
-             sh 'echo "In-Progress"'
+             sh './securityhub.sh'
             }
-          }
+         }
+         
       }
     }  
