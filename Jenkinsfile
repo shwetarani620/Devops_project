@@ -65,7 +65,7 @@ pipeline {
         //   } 
         stage ('Security monitoring and misconfigurations') {
         steps {
-             sh './securityhub.sh'
+             sh 'bash /securityhub.sh'
             }
          }
          
