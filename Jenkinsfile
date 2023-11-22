@@ -31,7 +31,7 @@ pipeline {
     //   }
        stage ('Static Analysis') {
                steps {
-                 withSonarQubeEnv('Sonar') {
+                 withSonarQubeEnv('sonarqube') {
                   sh 'mvn sonar:sonar'
                  // sh 'mvn clean sonar:sonar -Dsonar.java.binaries=src'  
         }
