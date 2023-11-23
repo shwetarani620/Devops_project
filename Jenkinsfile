@@ -18,16 +18,12 @@ pipeline {
        sh 'trufflehog3 https://github.com/shwetarani620/Devops_project.git -f json -o truffelhog_output.json || true'
        }
      }
-      stage ('Software Composition Analysis') {
-             steps {
-                 dependencyCheck additionalArguments: ''' 
-                     -o "./" 
-                     -s "./"
-                     -f "ALL" 
-                     --prettyPrint''', odcInstallation: 'owasp-dc'
-                 dependencyCheckPublisher pattern: 'dependency-check-report.xml'
-             }
-      }
+     stage('Check Dependency') {
+            steps {
+                dependencyCheck additionalArguments: ' --scan ./ ', odcInstallation: 'owasp-dc'
+                dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
+            }
+        }
        stage ('Static Analysis') {
                steps {
                  withSonarQubeEnv('sonar') {
