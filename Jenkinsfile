@@ -5,34 +5,34 @@ pipeline {
         maven 'maven3'
    }
   stages {
-    stage ('Initialize') {
-      steps {
-        sh '''
-                echo "PATH = ${PATH}"
-                echo "M2_HOME = ${M2_HOME}"
-            ''' 
-      }
-    }
-        stage ('Check Secrets') {
-       steps {
-       sh 'trufflehog3 https://github.com/shwetarani620/Devops_project.git -f json -o truffelhog_output.json || true'
-       }
-     }
-      stage ('Software Composition Analysis') {
-             steps {
-                 dependencyCheck additionalArguments: ''' 
-                     -o "./" 
-                     -s "./"
-                     -f "ALL" 
-                     --prettyPrint''', odcInstallation: 'owasp-dc'
-                 dependencyCheckPublisher pattern: 'dependency-check-report.xml'
-             }
-      }
+    // stage ('Initialize') {
+    //   steps {
+    //     sh '''
+    //             echo "PATH = ${PATH}"
+    //             echo "M2_HOME = ${M2_HOME}"
+    //         ''' 
+    //   }
+    // }
+    //     stage ('Check Secrets') {
+    //    steps {
+    //    sh 'trufflehog3 https://github.com/shwetarani620/Devops_project.git -f json -o truffelhog_output.json || true'
+    //    }
+    //  }
+    //   stage ('Software Composition Analysis') {
+    //          steps {
+    //              dependencyCheck additionalArguments: ''' 
+    //                  -o "./" 
+    //                  -s "./"
+    //                  -f "ALL" 
+    //                  --prettyPrint''', odcInstallation: 'owasp-dc'
+    //              dependencyCheckPublisher pattern: 'dependency-check-report.xml'
+    //          }
+    //   }
        stage ('Static Analysis') {
                steps {
                  withSonarQubeEnv('sonar') {
-                   sh 'mvn sonar:sonar'
-                 // sh 'mvn clean sonar:sonar -Dsonar.java.binaries=src'  
+                   // sh 'mvn sonar:sonar'
+                  sh 'mvn clean sonar:sonar -Dsonar.java.binaries=src'  
         }
       }
     }
