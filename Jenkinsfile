@@ -25,7 +25,6 @@ pipeline {
                      -s "./"
                      -f "ALL" 
                      --prettyPrint''', odcInstallation: 'owasp-dc'
-
                  dependencyCheckPublisher pattern: 'dependency-check-report.xml'
              }
       }
