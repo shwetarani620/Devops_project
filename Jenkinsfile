@@ -52,9 +52,9 @@ pipeline {
             steps {
            sshagent(['server-application']) {
               sh 'scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/project/target/01-maven-web-app.war root@192.168.80.30:/opt/tomcat/latest'
-              sh 'ssh -o  StrictHostKeyChecking=no root@192.168.80.30 "bash /opt/tomcat/bin/shutdown.sh"'
-              sh 'ssh -o  StrictHostKeyChecking=no root@192.168.80.30 "bash /opt/tomcat/bin/startup.sh"'
-             // sh 'ssh -o  StrictHostKeyChecking=no root@192.168.80.30 "nohup java -jar 01-maven-web-app.war --server.address=0.0.0.0 --server.port=8080 &"'
+              // sh 'ssh -o  StrictHostKeyChecking=no root@192.168.80.30 "bash /opt/tomcat/bin/shutdown.sh"'
+              // sh 'ssh -o  StrictHostKeyChecking=no root@192.168.80.30 "bash /opt/tomcat/bin/startup.sh"'
+              sh 'ssh -o  StrictHostKeyChecking=no root@192.168.80.30 "nohup java -jar 01-maven-web-app.war --server.address=0.0.0.0 --server.port=8080 &"'
            } 
          }
         }
