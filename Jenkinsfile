@@ -28,7 +28,7 @@ pipeline {
 
                  dependencyCheckPublisher pattern: 'dependency-check-report.xml'
              }
-     //     }
+        }
      // stage('Check Dependency') {
      //        steps {
      //            dependencyCheck additionalArguments: ' --scan ./ ', odcInstallation: 'owasp-dc'
