@@ -51,7 +51,7 @@ pipeline {
        stage ('Deploy to Server Application') {
             steps {
            sshagent(['server-application']) {
-              sh 'scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/project/target/01-maven-web-app.war root@192.168.80.30:/opt/tomcat/latest/'
+              sh 'scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/project/target/01-maven-web-app.war root@192.168.80.30:/opt/tomcat/webapps'
               sh 'ssh -o  StrictHostKeyChecking=no root@192.168.80.30 "bash /opt/tomcat/bin/shutdown.sh"'
               sh 'ssh -o  StrictHostKeyChecking=no root@192.168.80.30 "bash /opt/tomcat/bin/startup.sh"'
              }
