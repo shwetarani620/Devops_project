@@ -45,7 +45,7 @@ pipeline {
                    sh '''${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=shweta \
                   -Dsonar.projectName=shweta \
                   -Dsonar.projectVersion=1.0 \
-                  // -Dsonar.sources=webapp/ \
+                  -Dsonar.sources=webapp/ \
                   -Dsonar.java.binaries=target/test-classes/com/visualpathit/account/controllerTest/ \
                   -Dsonar.junit.reportsPath=targetsurefire-reports/ \
                   -Dsonar.jacoco.reportsPath=target/site/jacoco/jacoco.xml/ \
