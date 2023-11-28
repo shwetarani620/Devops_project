@@ -51,7 +51,7 @@ pipeline {
                   -Dsonar.jacoco.reportsPath=target/site/jacoco/jacoco.xml/ \
                   -Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml'''
                    // sh 'mvn sonar:sonar'
-                  // sh 'mvn clean sonar:sonar'  
+                 sh 'mvn clean sonar:sonar'  
         }
       }
     }
