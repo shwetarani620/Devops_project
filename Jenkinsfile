@@ -29,7 +29,6 @@ pipeline {
                      -s "./"
                      -f "ALL" 
                      --prettyPrint''', odcInstallation: 'owasp-dc'
-
                  dependencyCheckPublisher pattern: 'dependency-check-report.xml'
              }
         }
@@ -42,16 +41,16 @@ pipeline {
        stage ('Static Analysis') {
                steps {
                  withSonarQubeEnv('sonarqube') {
-                   sh '''${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=01-maven-web-app \
-                  -Dsonar.projectName=01-maven-web-app \
-                  -Dsonar.projectVersion=1.0 \
-                  -Dsonar.sources=webapp/ \
-                  -Dsonar.java.binaries=target/test-classes/com/visualpathit/account/controllerTest/ \
-                  -Dsonar.junit.reportsPath=targetsurefire-reports/ \
-                  -Dsonar.jacoco.reportsPath=target/site/jacoco/jacoco.xml/ \
-                  -Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml'''
+                  //  sh '''${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=01-maven-web-app \
+                  // -Dsonar.projectName=01-maven-web-app \
+                  // -Dsonar.projectVersion=1.0 \
+                  // -Dsonar.sources=webapp/ \
+                  // -Dsonar.java.binaries=target/test-classes/com/visualpathit/account/controllerTest/ \
+                  // -Dsonar.junit.reportsPath=targetsurefire-reports/ \
+                  // -Dsonar.jacoco.reportsPath=target/site/jacoco/jacoco.xml/ \
+                  // -Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml'''
                    // sh 'mvn sonar:sonar'
-                 // sh 'mvn clean sonar:sonar'  
+                 sh 'mvn clean sonar:sonar'  
         }
       }
     }
